@@ -36,3 +36,19 @@ CREATE TABLE job_skills (
     skill_id INT REFERENCES skills(skill_id),
     PRIMARY KEY (job_id, skill_id)
 );
+
+CREATE TABLE candidates (
+    candidate_id SERIAL PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    experience_years INT,
+    education_level VARCHAR(100)
+);
+
+CREATE TABLE applications (
+    application_id SERIAL PRIMARY KEY,
+    candidate_id INT REFERENCES candidates(candidate_id) ON DELETE CASCADE,
+    job_id INT REFERENCES jobs(job_id) ON DELETE CASCADE,
+    application_date DATE,
+    status VARCHAR(50)
+);
